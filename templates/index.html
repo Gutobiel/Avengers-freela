@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+<style>
+.row{
+    border-radius: 20px;
+}
+</style>
+<div class="row">
+    <div class="col-12">
+        <a href="addnew/" class="btn btn-outline-dark">Contratar novo herói</a>
+        <a href="#" class="btn btn-outline-dark">Histórico de Heróis</a>
+        <br><br>
+        <table class="table table-bordered table-striped table-hover border-dark">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Super-Poder</th>
+                    <th>Raça</th>
+                    <th width="350"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rs in herois %}
+                    <tr>
+                        <td>{{ rs.id }}</td>
+                        <td>{{ rs.nome }}</td>
+                        <td>{{ rs.superpoder }}</td>
+                        <td>{{ rs.raca }}</td>
+                        <td>
+                            <a href="edit/{{ rs.id }}" class="btn btn-outline-dark">Atualizar Informações</a> | <a href="delete/{{ rs.id }}" class="btn btn-dark">Demitir/Morreu</a>  
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+ 
+{% endblock content %}

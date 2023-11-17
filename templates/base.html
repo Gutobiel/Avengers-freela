@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Personagens da Marvel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+</head>
+<style>
+body {
+    color: #f0ece2;
+  }
+
+  h1, h2, h3, p, Form{
+    color: rgb(15, 15, 15);
+  }
+  
+  table{
+    border-radius: 20px;
+  }
+</style>
+<body>
+<div class="container">
+    <h1 class="page-header text-center">ADM VAZOU A TABELA DE HERÓIS DOS VINGADORES!</h1>
+    <h2 class="text-center">RH Vingadores</h2>
+    {% block content %}
+         
+    {% endblock content %}
+    <div>
+        <img src="/imagens/Avengers-Logo-PNG6.png" alt="logo">
+    </div>
+</div>
+</body>
+</html>   
