@@ -1,42 +1,35 @@
 {% extends 'base.html' %}
- 
+
 {% block content %}
-<style>
-.row{
-    border-radius: 20px;
-}
-</style>
 <div class="row">
     <div class="col-12">
-        <a href="addnew/" class="btn btn-outline-dark">Contratar novo herói</a>
-        <a href="historico" class="btn btn-outline-dark">Histórico de Heróis</a>
-        <br><br>
+        <h2>Histórico de Heróis</h2>
         <table class="table table-bordered table-striped table-hover border-dark">
             <thead class="table-dark">
                 <tr>
-                    <th>ID</th>
+                    <th>Imagem</th>
                     <th>Nome</th>
                     <th>Super-Poder</th>
                     <th>Raça</th>
-                    <th width="350"></th>
+                    <th>Data de Entrada</th>
+                    <th>Data de Saída</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
             <tbody>
                 {% for rs in herois %}
                     <tr>
-                        <td>{{ rs.id }}</td>
+                        <td><img src="/static/Avengers-Logo-PNG6.png" alt="teste"></td>
                         <td>{{ rs.nome }}</td>
                         <td>{{ rs.superpoder }}</td>
                         <td>{{ rs.raca }}</td>
-                        <td>
-                            <a href="{{ url_for('edit', heroi_id=rs.id) }}" class="btn btn-outline-dark">Atualizar Informações</a> | 
-                            <a href="{{ url_for('delete', heroi_id=rs.id) }}" class="btn btn-dark">Demitir/Morreu</a>  
-                        </td>
+                        <td>{{ rs.data_entrada.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ rs.data_saida.strftime('%Y-%m-%d') if rs.data_saida else 'N/A' }}</td>
+                        <td>Morto</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
- 
 {% endblock content %}

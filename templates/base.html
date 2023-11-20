@@ -10,26 +10,52 @@
 <style>
 body {
     color: #f0ece2;
-  }
+}
 
-  h1, h2, h3, p, Form{
+h1, h2, h3, p, Form{
     color: rgb(15, 15, 15);
-  }
-  
-  table{
+}
+
+table{
     border-radius: 20px;
-  }
+}
+
+.TituloRH {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.TituloRH img {
+    width: 300px;
+    margin-right: 10px; /* Espaço entre a imagem e o h2 */
+}
+
+footer {
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+}
+
 </style>
 <body>
-<div class="container">
-    <h1 class="page-header text-center">ADM VAZOU A TABELA DE HERÓIS DOS VINGADORES!</h1>
-    <h2 class="text-center">RH Vingadores</h2>
-    {% block content %}
-         
-    {% endblock content %}
-    <div>
-        <img src="/imagens/Avengers-Logo-PNG6.png" alt="logo">
+  <div class="container">
+    <div class="TituloRH" style="">
+      <img src="/static/Avengers-Logo-PNG4.png" alt="logo" style="width: 300px; display: block;"/> 
+      <h2><strong>RH Vingadores</strong></h2>
     </div>
-</div>
+        
+    {% block content %}
+    {% endblock content %}
+
+    <footer>
+      <div>
+        <img src="/static/Avengers-Logo-PNG6.png" alt="logo" style="width: 100px;">
+      </div>
+    </footer>
+  </div>
 </body>
-</html>   
+</html>

@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
- 
+
 {% block content %}
 <form action="/add" method="post" enctype="application/x-www-form-urlencoded">
     <div class="mb-3">
         <label>Nome</label>
-        <input type="text" name="nome" class="form-control " />
+        <input type="text" name="nome" class="form-control" />
     </div> 
     <div class="mb-3">
         <label>Super-Poder</label>
@@ -14,7 +14,10 @@
         <label>Raça</label>
         <input type="text" name="raca" class="form-control" />
     </div> 
+    <div class="mb-3" hidden>
+        <label>Ativo</label>
+        <input type="checkbox" name="ativo" checked />
+    </div> 
     <input type="submit" value="Adicionar Herói" class="btn btn-dark"/>  <br><br>
 </form>
-  
 {% endblock content %}
