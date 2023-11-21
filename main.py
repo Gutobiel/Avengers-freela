@@ -8,6 +8,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from database import engine
 import uvicorn
+from datetime import datetime
 
 from pydantic import BaseModel
 
@@ -33,22 +34,15 @@ def get_db():
 
 @app.get("/")
 async def home(request: Request, db: Session = Depends(get_db)):
-    herois = db.query(models.Herois).order_by(models.Herois.id.desc())
+    herois = db.query(models.Herois).filter(models.Herois.ativo == True).order_by(models.Herois.id.desc())
+
     return templates.TemplateResponse("index.html", {"request": request, "herois": herois})
 
-async def add(
-    request: Request,
-    nome: str = Form(...),
-    superpoder: str = Form(...),
-    raca: str = Form(...),
-    ativo: bool = Form(True),
-    db: Session = Depends(get_db)
-):
-    # Obtenha a data atual
-    data_atual = datetime.now().date()
+@app.post("/add")
+async def add(request: Request,nome: str = Form(...),superpoder: str = Form(...),raca: str = Form(...),ativo: bool = Form(True),db: Session = Depends(get_db)):
 
     # Crie uma instância do modelo Herois com a data atual
-    heroi = models.Herois(nome=nome, superpoder=superpoder, raca=raca, ativo=ativo, data_entrada=data_atual)
+    heroi = models.Herois(nome=nome, superpoder=superpoder, raca=raca, ativo=ativo)
 
     # Adicione o herói ao banco de dados e faça o commit
     db.add(heroi)
@@ -78,27 +72,19 @@ async def update(request: Request, heroi_id: int, nome: str = Form(...), superpo
 
 @app.get("/historico")
 async def historico(request: Request, db: Session = Depends(get_db)):
-    herois = db.query(models.Herois).filter(models.Herois.ativo == False).order_by(models.Herois.data_saida.desc())
+    herois = db.query(models.Herois).filter(models.Herois.ativo == False).order_by(models.Herois.id.desc())
+
     return templates.TemplateResponse("historico.html", {"request": request, "herois": herois})
 
 @app.get("/delete/{heroi_id}")
 async def delete(request: Request, heroi_id: int, db: Session = Depends(get_db)):
     heroi = db.query(models.Herois).filter(models.Herois.id == heroi_id).first()
-
-    if heroi:
-        # Obtenha a data atual
-        data_saida = datetime.now().date()
-
-        # Atualize a instância do herói com a data de saída
-        heroi.data_saida = data_saida
-
         # Marque o herói como inativo
-        heroi.ativo = False
+    heroi.ativo = False
+    print(heroi.ativo)
+    db.commit()
 
-        # Faça o commit para salvar as alterações
-        db.commit()
-
-        return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
+    return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='localhost', port=8080)
+    uvicorn.run(app, host='localhost', port=8888)

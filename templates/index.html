@@ -30,7 +30,7 @@
                         <td>{{ rs.raca }}</td>
                         <td>
                             <a href="{{ url_for('edit', heroi_id=rs.id) }}" class="btn btn-outline-dark">Atualizar Informações</a> | 
-                            <a href="{{ url_for('delete', heroi_id=rs.id) }}" class="btn btn-dark">Demitir/Morreu</a>  
+                            <a href="delete/{{ rs.id }}" class="btn btn-outline-dark">Demitir/Morreu</a>  
                         </td>
                     </tr>
                 {% endfor %}
