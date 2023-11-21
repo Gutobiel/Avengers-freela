@@ -11,7 +11,7 @@
                     <th>Nome</th>
                     <th>Super-Poder</th>
                     <th>Raça</th>
-                    <th>Estado</th>
+                    <th width="235px">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,14 +21,17 @@
                         <td>{{ rs.nome }}</td>
                         <td>{{ rs.superpoder }}</td>
                         <td>{{ rs.raca }}</td>
-                        <td>Morto<label for='m' class="sexo">
-                        <label for=""></label>
-                            <input id='m' type="radio" name="gender" id="gender" value="m"> Masculino
-               </label>  
+                        <td>
+                            <label for='Morto' class="status">
+                                <input type="checkbox" name="ativo" value="Morto" > Morto
+                            </label>  
    
-       <label for='f' class="sexo">
-                            <input id='f' type="radio" name="gender" id="gender" value="f">  Feminino
-               </label></td>
+                            <label for='off' class="status">
+                                <input type="checkbox" name="ativo" value="off">  Inativo
+                            </label>
+
+                            <a href="deleteBD/{{ rs.id }}" class="btn btn-outline-danger">Apagar</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

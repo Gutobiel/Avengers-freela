@@ -1,4 +1,3 @@
-import datetime
 from fastapi import FastAPI, Request, Depends, Form, status
 from fastapi.templating import Jinja2Templates
 import models
@@ -81,10 +80,16 @@ async def delete(request: Request, heroi_id: int, db: Session = Depends(get_db))
     heroi = db.query(models.Herois).filter(models.Herois.id == heroi_id).first()
         # Marque o herói como inativo
     heroi.ativo = False
-    print(heroi.ativo)
     db.commit()
 
     return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
 
+@app.get("/deleteBD/{heroi_id}")
+async def delete(request: Request, heroi_id: int, db: Session = Depends(get_db)):
+    heroi = db.query(models.Herois).filter(models.Herois.id == heroi_id).first()
+    db.delete(heroi)
+    db.commit()
+
+    return RedirectResponse(url=app.url_path_for("home"), status_code=status.HTTP_303_SEE_OTHER)
 if __name__ == '__main__':
     uvicorn.run(app, host='localhost', port=8888)
